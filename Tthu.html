@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chúc mừng Tết Trung Thu</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#fff8e6;
+      --accent:#ff6b6b;
+      --moon:#ffd873;
+    }
+    html,body{height:100%;margin:0;font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    body{
+      background: radial-gradient(1200px 600px at 10% 20%, #1b2334 10%, var(--bg) 40%),
+                  linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.35));
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      box-sizing:border-box;
+    }
+
+    .card{
+      width:100%;
+      max-width:720px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border-radius:18px;
+      padding:28px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .moon{
+      position:absolute;
+      right:28px;
+      top:20px;
+      width:120px;height:120px;
+      border-radius:50%;
+      background: radial-gradient(circle at 35% 30%, #fff7c2 0% 18%, var(--moon) 40%, #ffda5f 100%);
+      box-shadow: 0 6px 18px rgba(255,220,120,0.15), inset -6px -6px 20px rgba(0,0,0,0.05);
+      transform: translateY(0);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%{transform: translateY(0)}
+      50%{transform: translateY(8px)}
+      100%{transform: translateY(0)}
+    }
+
+    h1{font-size:28px;margin:6px 0 10px 0;color:#fff}
+    p.lead{color:rgba(255,255,255,0.85); margin:0 0 18px 0; font-size:16px}
+    .lanterns{
+      display:flex;gap:12px;justify-content:center;margin:12px 0 22px 0;
+    }
+    .lantern{
+      width:64px;height:96px;border-radius:12px; background: linear-gradient(180deg,#ff9b6a,#ff6b6b);
+      box-shadow: 0 10px 20px rgba(255,80,80,0.08);
+      transform-origin:center top;
+      animation: sway 3s ease-in-out infinite;
+    }
+    .lantern:nth-child(2){animation-delay: 0.3s}
+    .lantern:nth-child(3){animation-delay: 0.6s}
+    @keyframes sway{
+      0%{transform: rotate(-3deg)}
+      50%{transform: rotate(4deg)}
+      100%{transform: rotate(-3deg)}
+    }
+
+    .message{
+      background: rgba(255,255,255,0.04);
+      padding:16px;border-radius:10px;color:var(--card); max-width:640px;margin:0 auto;font-size:15px;
+    }
+    .from{
+      margin-top:16px;font-weight:600;color:rgba(255,255,255,0.9)
+    }
+    .cta{
+      margin-top:18px;
+      display:inline-block;
+      padding:10px 16px;border-radius:999px;background:linear-gradient(90deg,var(--accent),#ff9461);
+      color:white;text-decoration:none;font-weight:600;
+      box-shadow: 0 6px 20px rgba(255,100,100,0.12);
+    }
+
+    footer{margin-top:18px;font-size:12px;color:rgba(255,255,255,0.45)}
+    @media (max-width:480px){
+      .moon{display:none}
+      .lantern{width:48px;height:72px}
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <div class="moon" aria-hidden="true"></div>
+
+    <div style="padding-top:12px">
+      <div class="lanterns" aria-hidden="true">
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+        <div class="lantern"></div>
+      </div>
+
+      <h1>Chúc mừng Tết Trung Thu 🏮🌕</h1>
+      <p class="lead">Gửi bạn những lời chúc an yên, tròn đầy và nhiều bánh nướng — hy vọng đêm Trung Thu của bạn thật ấm áp.</p>
+
+      <div class="message" id="messageBox">
+        <p id="customMessage">Chúc bạn và gia đình một Trung Thu vui vẻ, tràn đầy hạnh phúc và may mắn!</p>
+        <div class="from" id="fromLine">— từ một người bạn thân</div>
+      </div>
+
+      <a class="cta" id="ctaBtn" href="#" onclick="share()">Xem lời chúc</a>
+
+      <footer>Nhấn vào nút hoặc quét QR để mở trang này trên điện thoại.</footer>
+    </div>
+  </div>
+
+  <script>
+    // Tùy chỉnh nhanh: nếu URL có tham số ?from=TenNguoiGui thì sẽ hiện tên gửi
+    function getParam(name){
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+    const from = getParam('from');
+    const msg = getParam('msg');
+    if(from){
+      document.getElementById('fromLine').textContent = '— từ ' + decodeURIComponent(from);
+    }
+    if(msg){
+      document.getElementById('customMessage').textContent = decodeURIComponent(msg);
+    }
+
+    function share(){
+      // mở hộp thoại share của trình duyệt nếu có
+      const text = document.getElementById('customMessage').textContent + ' ' + document.getElementById('fromLine').textContent;
+      if(navigator.share){
+        navigator.share({title: 'Chúc mừng Trung Thu', text, url: window.location.href})
+        .catch(()=>{});
+      } else {
+        alert('Sao chép URL và gửi cho họ nhé:\\n' + window.location.href);
+      }
+    }
+  </script>
+</body>
+</html>
