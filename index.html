@@ -117,10 +117,37 @@
       </div>
 
       <a class="cta" id="ctaBtn" href="#" onclick="share()">Xem lời chúc</a>
+      <div id="extraContent" style="display:none; margin-top:20px; text-align:center;">
+        <img src="anh1.png" alt="Đèn lồng 1" style="width:80px; margin:6px;">
+        <img src="anh2.png" alt="Đèn lồng 2" style="width:80px; margin:6px;">
+        <p style="color:#ffd873; font-weight:600; margin-top:12px;">
+          Chúc em Trung Thu thật vui vẻ và tràn đầy hạnh phúc! 
+        </p>
+        <p>
+          (Nhớ cho anh 1 buổi hẹn để gặp em nha. Anh chờ đó ^^)
+        </p>
+      </div>
 
       
     </div>
   </div>
+  <script>
+function toggleExtraContent() {
+  const extra = document.getElementById('extraContent');
+  if (extra.style.display === 'block') {
+    extra.style.display = 'none'; // nếu đang hiện, ẩn đi
+  } else {
+    extra.style.display = 'block'; // nếu đang ẩn, hiện lên
+  }
+}
+
+// Gán cho nút
+document.getElementById('ctaBtn').onclick = function(e){
+  e.preventDefault();
+  toggleExtraContent();
+};
+</script>
+  
   <video autoplay muted loop playsinline>
   <source src="background.webm" type="video/webm">
 </video>
