@@ -145,5 +145,29 @@
       }
     }
   </script>
+  <audio id="bgMusic" src="music.mp3" loop></audio>
+
+
+
+<script>
+  const music = document.getElementById('bgMusic');
+
+  // Cho phép người dùng bật nhạc khi có tương tác đầu tiên
+  function startMusic() {
+    music.play().then(() => {
+      console.log("Music started!");
+    }).catch(err => {
+      console.log("Autoplay bị chặn:", err);
+    });
+
+    // Xóa sự kiện sau lần đầu để tránh phát lại nhiều lần
+    document.removeEventListener('touchstart', startMusic);
+    document.removeEventListener('click', startMusic);
+  }
+
+  // Thêm event cho cả desktop và mobile
+  document.addEventListener('click', startMusic);
+  document.addEventListener('touchstart', startMusic);
+</script>
 </body>
 </html>
